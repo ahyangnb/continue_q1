@@ -26,6 +26,22 @@
 
 </div>
 
+# Q1
+environment
+```
+ q1@q1deMacBook-Pro  ~/Downloads/continue_q1   main ±  npm -v
+10.5.0
+ q1@q1deMacBook-Pro  ~/Downloads/continue_q1   main ±  node -v
+v21.7.2
+```
+we can run the `docs` project by running the following command
+```
+npm install
+npm start
+```
+and then that will display content like image:
+![./Snipaste_2024-04-05_02-23-47.png](./Snipaste_2024-04-05_02-23-47.png)
+
 ## Task and tab autocomplete
 
 ### Answer coding questions

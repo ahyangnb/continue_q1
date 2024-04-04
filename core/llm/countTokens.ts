@@ -1,4 +1,4 @@
-import { Tiktoken, encodingForModel as _encodingForModel } from "js-tiktoken";
+import { encodingForModel as _encodingForModel, Tiktoken } from "js-tiktoken";
 // @ts-ignore
 import llamaTokenizer, { LlamaTokenizer } from "llama-tokenizer-js";
 import { ChatMessage, MessageContent, MessagePart } from "..";
@@ -12,7 +12,7 @@ interface Encoding {
 
 let gptEncoding: Encoding | null = null;
 
-function encodingForModel(modelName: string): LlamaTokenizer {
+function encodingForModel(modelName: string): Encoding {
   const modelType = autodetectTemplateType(modelName);
 
   if (!modelType || modelType === "none") {
@@ -23,7 +23,16 @@ function encodingForModel(modelName: string): LlamaTokenizer {
     return gptEncoding;
   }
 
-  return llamaTokenizer;
+  // Create a wrapper function around llamaTokenizer.encode
+  // The code from gpt.
+  return {
+    encode: (text: string, allowedSpecial?: string[] | "all", disallowedSpecial?: string[] | "all"): number[] => {
+      // You might need to adjust this line depending on how you want to handle the allowedSpecial and disallowedSpecial parameters
+      return llamaTokenizer.encode(text);
+    },
+    decode: llamaTokenizer.decode
+  };
+  // return llamaTokenizer;
 }
 
 function countImageTokens(content: MessagePart): number {
